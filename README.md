@@ -1,16 +1,20 @@
-# detector-fake-news
-
+# detector-fake-news: projeto em construção 🚧
 
 ## estrutura do projeto
 
 ```
 detector-fake-news/
-├── ml-service/               # Backend Python (FastAPI + ML Model)
+├── ml-service/             
 │   ├── model/                # Onde o modelo treinado será salvo
-│   ├── main.py               # API de predição
-│   ├── trainer.py            # Script para treinar o modelo
+│   ├── dataset/                # Onde o modelo treinado será salvo
+│   ├── src/
+│   │   ├── bert_model.py
+│   │   ├── dataset_processing.py
+│   │   ├── fake_news_dataset.py
+│   │   ├── tokenizer.py
+│   │   └── trainer.py
 │   └── requirements.txt
-├── frontend/             # Frontend TypeScript (React/Vite)
+├── frontend/             # Frontend TypeScript (React)
 │   ├── src/
 │   │   ├── components/
 │   │   └── services/         # Chamadas de API
