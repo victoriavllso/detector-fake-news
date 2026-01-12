@@ -1,0 +1,21 @@
+# ambientes virtuais
+venv/
+.env/
+
+# editor
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# modelos / checkpoints 
+ml_service/first_model
+#*.pt
+#*.bin
+
+# dataset
+ml_service/dataset/true
+ml_service/dataset/fake
