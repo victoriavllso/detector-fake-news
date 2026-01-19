@@ -16,6 +16,7 @@ ml_service/first_model
 #*.pt
 #*.bin
 
-# dataset
 ml_service/dataset/true
 ml_service/dataset/fake
+ml_service/model/
+ml_service/src/results

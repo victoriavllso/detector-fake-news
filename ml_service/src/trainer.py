@@ -38,6 +38,7 @@ training_args = TrainingArguments(
     load_best_model_at_end=True,     # garante que o melhor modelo seja mantido
     metric_for_best_model="f1",      # critério para decidir o "melhor"
     fp16=True,                       # acelerar a GPU
+    label_smoothing_factor=0.1
 )
 
 trainer = Trainer(
