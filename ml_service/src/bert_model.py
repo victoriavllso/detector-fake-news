@@ -1,7 +1,8 @@
 from transformers import AutoModelForSequenceClassification
-from tokenizer import model_name
+from config import model_name
 
-model = AutoModelForSequenceClassification.from_pretrained(
+def model_init():
+	return AutoModelForSequenceClassification.from_pretrained(
     model_name, 
-    num_labels=2 # fake ou real
+    num_labels=3 # fake ou real ou sensacionalista
 )

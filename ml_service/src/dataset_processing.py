@@ -2,7 +2,7 @@ import os
 import pandas as pd
 from tqdm import tqdm 
 
-def criar_csv_fake_news(diretorio_base, nome_arquivo_saida='../datasets/dataset_fake_news.csv'):
+def extrair_noticias_fake_e_verdadeiras(diretorio_base):
     dados = []
     
     # Mapeamento de pastas e seus respectivos labels
@@ -36,11 +36,57 @@ def criar_csv_fake_news(diretorio_base, nome_arquivo_saida='../datasets/dataset_
             except Exception as e:
                 print(f"Erro ao ler o arquivo {nome_arquivo}: {e}")
 
-    df = pd.DataFrame(dados)
-    
-    df.to_csv(nome_arquivo_saida, index=False, encoding='utf-8')
-    print(f"\nSucesso! Dataset salvo como: {nome_arquivo_saida}")
-    print(f"Total de registros: {len(df)}")
-    print(df['label'].value_counts()) # balanceamento entre classes
+    return pd.DataFrame(dados)
 
-criar_csv_fake_news('../datasets')
+
+def extrair_noticias_tendenciosas(caminho_arquivo_tsv: str) -> pd.DataFrame:
+    categorias = {
+        'distorcido': 2,
+        'exagerado': 2
+    }
+
+    df = pd.read_csv(caminho_arquivo_tsv, sep='\t', encoding='utf-8')
+
+    df['alternativeName'] = (
+        df['alternativeName']
+        .dropna()
+        .str.lower()
+        .str.strip()
+    )
+
+    df_filtrado = df[df['alternativeName'].isin(categorias)]
+
+    df_filtrado['label'] = df_filtrado['alternativeName'].map(categorias)
+
+    return df_filtrado[['label', 'claimReviewed']] \
+        .rename(columns={'claimReviewed': 'text'})
+
+
+def criar_csv_fake_news(diretorio_base: str,caminho_tsv: str, nome_arquivo_saida: str):
+    df_fake_true = extrair_noticias_fake_e_verdadeiras(diretorio_base)
+    df_tendenciosas = extrair_noticias_tendenciosas(caminho_tsv)
+
+    df_final = pd.concat(
+        [df_fake_true[['label', 'text']], df_tendenciosas],
+        ignore_index=True
+    )
+
+    df_final.to_csv(nome_arquivo_saida, index=False)
+
+    print("Dataset criado com sucesso!")
+    print(df_final['label'].value_counts())
+
+    
+
+diretorio_base = '../dataset'
+criar_csv_fake_news(diretorio_base, '../dataset/FACTCKBR.tsv', '../dataset/fake_news_dataset.csv')
+
+
+ # --------- preparação do dataset 
+ 
+dataset_path = '../dataset/fake_news_dataset.csv'
+
+df = pd.read_csv(dataset_path)
+df = df.dropna(subset=['text', 'label'])  # Remover linhas com valores ausentes
+texts = df["text"]
+labels = df["label"]

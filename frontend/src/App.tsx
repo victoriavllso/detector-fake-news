@@ -13,10 +13,7 @@ function App() {
   return (
     <Box className={styles.CenteredColumn}>
       <TextFieldContainer title='Insira o texto da notícia'>  
-        <InputText
-        value={text}
-        onChange={setText}
-        />
+        <InputText value={text} onChange={setText}/>
       </TextFieldContainer>
       <IconLabelButtons >
       </IconLabelButtons>

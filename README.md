@@ -6,19 +6,14 @@ Atualmente, o foco está na construção e treinamento do modelo de classificaç
 
 
 
-##  Estrutura do projeto
+##  Estrutura base do projeto
 
 ```text
 detector-fake-news/
 ├── ml-service/                    # Serviço de Machine Learning
 │   ├── model/                     # Modelos treinados e checkpoints
 │   ├── dataset/                   # Conjunto de dados (fake e verdadeiras)
-│   ├── src/
-│   │   ├── bert_model.py        
-│   │   ├── dataset_processing.py  
-│   │   ├── fake_news_dataset.py  
-│   │   ├── tokenizer.py          
-│   │   └── trainer.py             
+│   ├── src/        			   # Scripts de configuração e treinamento
 │   └── requirements.txt           
 │
 ├── frontend/                      #  Em andamento
@@ -31,10 +26,11 @@ detector-fake-news/
 
 O modelo utilizado neste projeto é o **BERTimbau Base** (`neuralmind/bert-base-portuguese-cased`), um modelo BERT pré-treinado para a língua portuguesa.
 
-Foi realizado o **fine-tuning** do modelo para a tarefa de **classificação binária de notícias**, distinguindo entre:
+Foi realizado o **fine-tuning** do modelo para a tarefa de **classificação de notícias**, distinguindo entre:
 
 * **Fake news**
 * **Notícias verdadeiras**
+* **Sensacionalista**
 
 O BERTimbau Base possui:
 
