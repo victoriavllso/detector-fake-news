@@ -21,3 +21,5 @@ ml_service/dataset/fake
 ml_service/model/
 ml_service/src/results
 ml_service/model-v1
+
+anotações.txt
