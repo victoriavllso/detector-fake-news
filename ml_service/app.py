@@ -4,15 +4,14 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer
 import torch
 
 app = Flask(__name__)
-CORS(app) # Permite chamadas de outras origens (como seu backend Kotlin)
+CORS(app) # Permite chamadas de outras origens (como backend Kotlin)
 
-# 1. Carregar o modelo e tokenizer (Ajuste o caminho para sua pasta de modelo salvo)
-MODEL_PATH = "./model" 
+# 1. Carregar o modelo e tokenizer 
+MODEL_PATH = "./model/final" 
 tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
 model = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH)
 
-# Mapeamento de labels (ajuste conforme seu treinamento)
-labels = {0: "Real", 1: "Fake", 2: "Sensacionalista"}
+labels = {0: "Real", 1: "Fake"}
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -35,6 +34,9 @@ def predict():
         "confidence": float(probability[0][prediction]),
         "all_scores": {labels[i]: float(probability[0][i]) for i in labels}
     })
+@app.route('/')
+def home():
+    return "Bem-vindo ao Detector de Fake News API! Use o endpoint /predict para classificar notícias.", 200
 
 if __name__ == '__main__':
     app.run(port=5000)

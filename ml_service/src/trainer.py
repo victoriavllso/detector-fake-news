@@ -3,13 +3,17 @@ from bert_model import model_init
 from fake_news_dataset import FakeNewsDataset
 from tokenizer import tokenize_function, tokenizer
 import numpy as np
-from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
+from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score, confusion_matrix
 from transformers import TrainingArguments
 from dataset_processing import texts, labels
 from sklearn.model_selection import train_test_split
 from transformers import Trainer
+import matplotlib.pyplot as plt
+import seaborn as sns
 
  # --------- definição das métricas de avaliação
+
+ # macro -> usa para classes desbalanceadas, pois calcula a média das métricas para cada classe, dando igual importância a todas as classes, independentemente do número de amostras em cada classe.
 def compute_metrics(eval_pred):
     logits, labels = eval_pred
     predictions = np.argmax(logits, axis=-1)
@@ -56,10 +60,30 @@ trainer = Trainer(
     train_dataset=train_dataset,
     eval_dataset=val_dataset,
     compute_metrics=compute_metrics,
-    tokenizer=tokenizer
+   processing_class=tokenizer
 )
 
 trainer.train()
+
+# --------- matriz de confusão
+
+# 1. Obter as predições do conjunto de validação
+output = trainer.predict(val_dataset)
+y_true = output.label_ids
+y_pred = np.argmax(output.predictions, axis=-1)
+
+# 2. Gerar a matriz de confusão
+# Os nomes das labels seguem a ordem: 0 (Verdadeira), 1 (Fake)
+labels = ['Verdadeira', 'Fake']
+cm = confusion_matrix(y_true, y_pred)
+
+plt.figure(figsize=(8, 6))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
+            xticklabels=labels, yticklabels=labels)
+plt.ylabel('Real')
+plt.xlabel('Predito')
+plt.title('Matriz de Confusão - BERTimbau')
+plt.savefig('../model/confusion_matrix.png') # Salva a imagem na sua pasta de modelos
 
 # --------- salvamento do modelo treinado
 

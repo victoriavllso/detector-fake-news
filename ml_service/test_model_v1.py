@@ -44,7 +44,7 @@ def main():
     # Configura o argumento do terminal
     parser = argparse.ArgumentParser(description="Classificador de Fake News via Arquivo TXT")
     parser.add_argument("arquivo", help="Caminho para o arquivo .txt que contém a notícia")
-    parser.add_argument("--model_dir", default="./model-v1", help="Diretório onde o modelo está salvo")
+    parser.add_argument("--model_dir", default="./model/final", help="Diretório onde o modelo está salvo")
     
     args = parser.parse_args()
 

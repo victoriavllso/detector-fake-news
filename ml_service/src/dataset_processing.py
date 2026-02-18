@@ -79,12 +79,12 @@ def criar_csv_fake_news(diretorio_base: str,caminho_tsv: str, nome_arquivo_saida
     
 
 diretorio_base = '../dataset'
-criar_csv_fake_news(diretorio_base, '../dataset/FACTCKBR.tsv', '../dataset/fake_news_dataset.csv')
+#criar_csv_fake_news(diretorio_base, '../dataset/FACTCKBR.tsv', '../dataset/fake_news_dataset.csv')
 
 
  # --------- preparação do dataset 
  
-dataset_path = '../dataset/fake_news_dataset.csv'
+dataset_path = '../dataset/dataset_fake_news_corpus.csv'
 
 df = pd.read_csv(dataset_path)
 df = df.dropna(subset=['text', 'label'])  # Remover linhas com valores ausentes

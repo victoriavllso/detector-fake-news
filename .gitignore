@@ -2,6 +2,8 @@
 venv/
 .env/
 
+# config
+.env
 # editor
 .vscode/
 
@@ -23,3 +25,5 @@ ml_service/src/results
 ml_service/model-v1
 
 anotações.txt
+
+node_modules
