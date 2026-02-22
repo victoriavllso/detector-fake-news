@@ -15,7 +15,7 @@ class MLIntegrationService(private val mlServiceWebClient: WebClient) {
         return mlServiceWebClient.post()
             .uri("/predict") // Endpoint que será criado no Python
             .bodyValue(requestBody)
-            .retrieve()
+            .retrieve() // recebe a resposta do python
             .bodyToMono(Map::class.java)
     }
 

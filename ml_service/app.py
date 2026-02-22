@@ -2,6 +2,11 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 import torch
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+PORT = int(os.getenv("PORT", 5000))
 
 app = Flask(__name__)
 CORS(app) # Permite chamadas de outras origens (como backend Kotlin)
@@ -30,7 +35,7 @@ def predict():
 
     # 3. Resposta formatada
     return jsonify({
-        "label": labels[prediction],
+        "classification": labels[prediction],
         "confidence": float(probability[0][prediction]),
         "all_scores": {labels[i]: float(probability[0][i]) for i in labels}
     })
@@ -39,6 +44,6 @@ def home():
     return "Bem-vindo ao Detector de Fake News API! Use o endpoint /predict para classificar notícias.", 200
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(port=PORT)
     
 	#https://www.youtube.com/watch?v=GS_ylghUtLQ&start=0
