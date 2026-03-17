@@ -12,10 +12,11 @@ app = Flask(__name__)
 CORS(app) # Permite chamadas de outras origens (como backend Kotlin)
 
 # 1. Carregar o modelo e tokenizer 
-MODEL_PATH = "./model/final" 
-tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
-model = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH)
+MODEL_PATH = "victoriavllso/fake-news-detector"  
 
+tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH, subfolder="model-v1")  
+model = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH, subfolder="model-v1")
+model.eval()  # Coloca o modelo em modo de avaliação
 labels = {0: "Real", 1: "Fake"}
 
 @app.route('/predict', methods=['POST'])
@@ -44,6 +45,6 @@ def home():
     return "Bem-vindo ao Detector de Fake News API! Use o endpoint /predict para classificar notícias.", 200
 
 if __name__ == '__main__':
-    app.run(port=PORT)
+    app.run(host="0.0.0.0",port=PORT)
     
 	#https://www.youtube.com/watch?v=GS_ylghUtLQ&start=0

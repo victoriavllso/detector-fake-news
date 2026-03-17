@@ -1,5 +1,5 @@
 ml:
-  base-url: http://localhost:5000
+  base-url: http://ml-service:5000
 
 front:
   url_front: http://localhost:5173

@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+
+  postgres:
+    image: postgres:16
+    container_name: fake-news-postgres
+    environment:
+      POSTGRES_DB: fakenews
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./backend
+    container_name: fake-news-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - ml-service
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/fakenews
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+
+  ml-service:
+    build: ./ml_service
+    container_name: fake-news-ml
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build: ./frontend
+    container_name: fake-news-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
