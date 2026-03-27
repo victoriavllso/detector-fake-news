@@ -25,7 +25,6 @@ class SecurityConfig {
         config.allowedOrigins = listOf("http://localhost:3000") // Apenas a origem exata do front
         config.allowedHeaders = listOf("*")
         config.allowedMethods = listOf("OPTIONS", "GET", "POST", "PUT", "DELETE")
-        // Remova allowedOriginPatterns = listOf("*") para evitar conflito com allowCredentials = true
 
         val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/**", config)
