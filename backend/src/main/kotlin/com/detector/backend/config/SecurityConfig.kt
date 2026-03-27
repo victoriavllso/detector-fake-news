@@ -22,7 +22,7 @@ class SecurityConfig {
     fun corsConfigurationSource(): UrlBasedCorsConfigurationSource {
         val config = CorsConfiguration()
         config.allowCredentials = true
-        config.allowedOrigins = listOf("http://localhost:3000") // Apenas a origem exata do front
+        config.allowedOrigins = listOf("http://localhost:3000", "http://localhost:5173" ) // Apenas a origem exata do front
         config.allowedHeaders = listOf("*")
         config.allowedMethods = listOf("OPTIONS", "GET", "POST", "PUT", "DELETE")
 
