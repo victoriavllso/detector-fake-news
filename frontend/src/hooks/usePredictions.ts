@@ -16,11 +16,21 @@ export function usePrediction() {
     try {
       const response = await requestPrediction(text);
       setResult(response);
-    } catch (err) {
-      setError("Erro ao processar predição. Tente novamente.");
-      setResult(null);
-	  console.log("erro capturado", err)
-    } finally {
+    }catch (err: any) {
+  console.log("erro completo:", err);
+
+  if (err.response) {
+    console.log("status:", err.response.status);
+    console.log("data:", err.response.data);
+  } else if (err.request) {
+    console.log("sem resposta do servidor:", err.request);
+  } else {
+    console.log("erro ao configurar requisição:", err.message);
+  }
+
+  setError("Erro ao processar predição. Tente novamente.");
+  setResult(null);
+  }finally {
       setLoading(false);
     }
   };

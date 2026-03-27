@@ -30,6 +30,7 @@ dependencies {
     implementation("io.github.cdimascio:dotenv-kotlin:6.2.2")
 	implementation("org.springframework.boot:spring-boot-starter-webflux") 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("com.h2database:h2") // banco em memória RAM para ambiente de teste
 }
 
 kotlin {

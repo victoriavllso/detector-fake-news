@@ -2,4 +2,4 @@ ml:
   base-url: http://ml-service:5000
 
 front:
-  url_front: http://localhost:5173
+  url_front: http://localhost:3000

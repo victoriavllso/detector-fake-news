@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono
 
 
 @RestController
-@CrossOrigin(origins = ["\${front.url_front}"]) // permite que o front mande requisições ao back
+//@CrossOrigin(origins = ["\${front.url_front}"]) // permite que o front mande requisições ao back
 class PredictionController(private val mlIntegrationService: MLIntegrationService) {
 
     @PostMapping("/predict")
